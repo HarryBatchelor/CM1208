@@ -20,7 +20,6 @@ Transactions = int(infomation[2])
 def build_table():
 	global table
 	table = []
-<<<<<<< HEAD
 	for i in range(Customers):
 		table.append([0]*items)
 	for case in history:
@@ -42,7 +41,6 @@ def show_table(t):
 
 def find_posistive_entries(t):
 	return (Counter(str(t))['1'])
-=======
 	for i in range(Number_of_Customers+1):
 		table.append([0]*(Number_of_items+1))
 	for case in history:
@@ -79,7 +77,6 @@ def order(matches):
 	for entries in ordered_matches:
 		out_string += str(entries[1])+''
 	return(out_string)
->>>>>>> f24fbce3822f8772f00685919b48be47132d05b2
 
 def main():
 	build_table()
