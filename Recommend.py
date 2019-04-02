@@ -11,9 +11,9 @@ queries = raw_queries.read().split('\n')
 infomation = history[0].split(' ')
 del(history[0])
 
-Number_of_Customers = int(infomation[0])
-Number_of_items = int(infomation[1])
-Number_of_Transactions = int(infomation[2])
+Customers = int(infomation[0])
+items = int(infomation[1])
+Transactions = int(infomation[2])
 
 if not __debug__:
 	print(infomation)
@@ -23,8 +23,8 @@ if not __debug__:
 
 def build_customer_item_history_table():
 	table = []
-	for i in range(Number_of_Customers):
-		table.append([0]*Number_of_items)
+	for i in range(Customers):
+		table.append([0]*items)
 	for case in history:
 		user        = int(case.split(' ')[0])-1
 		item_bought = int(case.split(' ')[1])-1
@@ -35,7 +35,7 @@ def build_customer_item_history_table():
 def show_table(t):
 	print('		Item:')
 	formatting = '      '
-	for i in range(0,Number_of_items):
+	for i in range(0,items):
 		formatting += ('  '+str(i+1))
 	print(formatting)
 	for i in range(len(t)):
