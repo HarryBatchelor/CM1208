@@ -13,34 +13,13 @@ queries = raw_queries.read().split('\n')
 infomation = history[0].split(' ')
 del(history[0])
 
-Customers = int(infomation[0])
-items = int(infomation[1])
-Transactions = int(infomation[2])
+Number_of_Customers = int(infomation[0])
+Number_of_items = int(infomation[1])
+Number_of_Transactions = int(infomation[2])
 
 def build_table():
 	global table
 	table = []
-	for i in range(Customers):
-		table.append([0]*items)
-	for case in history:
-		user        = int(case.split(' ')[0])-1
-		item_bought = int(case.split(' ')[1])-1
-		table[user][item_bought] = 1
-	print("Positive entries: %s" %find_posistive_entries(table))
-	show_table(table)
-
-def show_table(t):
-	print('		Item:')
-	formatting = '      '
-	for i in range(0,items):
-		formatting += ('  '+str(i+1))
-	print(formatting)
-	for i in range(len(t)):
-		print('User %s %s' %(i+1,t[i]))
-	print()
-
-def find_posistive_entries():
-	return (Counter(str(t))['1'])
 	for i in range(Number_of_Customers+1):
 		table.append([0]*(Number_of_items+1))
 	for case in history:
@@ -48,9 +27,9 @@ def find_posistive_entries():
 		item_bought = int(case.split(' ')[1])
 		table[item_bought][user] = 1
 	print("Positive entries: %s" %Counter(str(table))['1'])
-	print('Average angle: %s'%Average_angle())
+	print('Average angle: %s'%angle_averages())
 
-def Average_angle(a):
+def angle_averages():
 	all_pairs = []
 	for ix in range(1, Number_of_items+1):
 		for iy in range(1,Number_of_items+1):
@@ -59,11 +38,11 @@ def Average_angle(a):
 	return round(np.mean(all_pairs),2)
 
 def calculate_angle(x, y):
-	norm_x = np.linalg.norm(x)
 	norm_y = np.linalg.norm(y)
+	norm_x = np.linalg.norm(x)
 	return round(math.degrees(math.acos(np.dot(x,y) / (norm_x * norm_y))),2)
 
-def check_angle(item,cart):
+def angle_check(item,cart):
 	all_angles = []
 	if item !=' ':
 		for i in range(1,6):
@@ -73,28 +52,28 @@ def check_angle(item,cart):
 
 def order(matches):
 	ordered_matches = sorted(matches, key=lambda x: x[0])
-	out_string= ''
+	output_string= ''
 	for entries in ordered_matches:
-		out_string += str(entries[1])+''
-	return(out_string)
+		output_string += str(entries[1])+''
+	return(output_string)
 
 def main():
 	build_table()
 	for cart in queries:
 		matches_found=[]
-		matches_please_dont_look_at_this=[]
+		re_ordered_matches=[]
 		print("Shopping Cart: %s" %cart)
 		items_in_cart = cart.split(' ')
 		for item in items_in_cart:
-			match, angle = check_angle(item,list(cart))
+			match, angle = angle_check(item,list(cart))
 			if angle > 90:
 				continue
-			elif match not in matches_please_dont_look_at_this:
+			elif match not in re_ordered_matches:
 				matches_found.append([angle,match])
-				matches_please_dont_look_at_this.append(match)
+				re_ordered_matches.append(match)
 			if angle != 90:
-				print('Item: %s; match: %s, angle: %s'%(item,match,angle))
+				print('Item: %s: match: %s, angle: %s'%(item,match,angle))
 			else:
-				print('Item: %s no match'%item)
+				print('Item: %s no match found '%item)
 		print('Recommend: '+order(matches_found))
 main()
