@@ -39,7 +39,7 @@ def show_table(t):
 		print('User %s %s' %(i+1,t[i]))
 	print()
 
-def find_posistive_entries(t):
+def find_posistive_entries():
 	return (Counter(str(t))['1'])
 	for i in range(Number_of_Customers+1):
 		table.append([0]*(Number_of_items+1))
