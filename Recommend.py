@@ -29,7 +29,7 @@ def build_table():
 	print("Positive entries: %s" %Counter(str(table))['1'])
 	print('Average angle: %s'%Average_angle())
 
-def Average_angle():
+def Average_angle(a):
 	all_pairs = []
 	for ix in range(1, Number_of_items+1):
 		for iy in range(1,Number_of_items+1):
